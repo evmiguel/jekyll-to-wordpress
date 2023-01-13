@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 import frontmatter
+import markdown
  
 class Parser(ABC):
  
@@ -11,5 +12,6 @@ class JekyllParser(Parser):
 
     def parse(self, content):
         metadata, content = frontmatter.parse(content)
-        return metadata, content
+        html_content = markdown.markdown(content)
+        return metadata, html_content
 

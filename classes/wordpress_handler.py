@@ -19,13 +19,12 @@ class WordpressHandler(Handler):
     
     # This function only works if there is a slug in the frontmatter
     # TODO: handle missing data parameters: slug, publication date, categories
-    # TODO: pick a different parser. The HTML content is not good.
     def post_to_wordpress(self, content):
         metadata, html_content = self.parser.parse(content)
         data = {
             "content": html_content,
             "slug": metadata["slug"],
-            "title": metadata["title"],
+            "title": metadata["title"]
         }
         response = requests.post(url=self.config['wordpress_url'], auth=(self.config['wordpress_auth_username'], self.config['wordpress_auth_password']), json=data, headers={'Content-Type': 'application/json'})
-        print(response.json())
+        print(response)
