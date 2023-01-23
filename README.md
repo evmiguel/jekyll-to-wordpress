@@ -7,3 +7,10 @@ This tool does not handle:
 - Checking for post existence. Therefore, multiple CLI calls
   with the same parameters will yield the multiple of the same
   posts.
+
+## Usage
+### Convert a Jekyll file to WordPress posts
+`python3 /path/to/jekyll-to-wordpress/main.py --file /path/to/file.md`
+
+### Convert a directory of Jekyll files to WordPress posts
+`python3 /path/to/jekyll-to-wordpress/main.py --directory /path/to/_posts`
