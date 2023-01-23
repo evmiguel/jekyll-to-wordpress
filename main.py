@@ -11,9 +11,9 @@ with open("config.json") as json_data_file:
 
 
 # Set up command line arguments
-parser = argparse.ArgumentParser(description='Process a directory of Jekyll Markdown posts and create them in a WordPress instance')
-parser.add_argument('--file', help='a single post file')
-parser.add_argument('--directory', help='the directory with all the posts')
+parser = argparse.ArgumentParser(description='Process a Jekyll Markdown file or directory of Jekyll Markdown posts and create them in a WordPress instance')
+parser.add_argument('--file', help='The absolute path of a single post file')
+parser.add_argument('--directory', help='The absolute path of the directory with all the posts')
 args = parser.parse_args()
 
 # Global Wordpress Handler

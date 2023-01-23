@@ -18,7 +18,8 @@ class JekyllParser(Parser):
 
     def parse_date_from_filename(self, filename):
         if ("-" in filename):
-            pubDateData = filename.split('/')[-1].split('-', 3) # This assumes that the filenames are in YYYY-MM-DD-title-string.md format
+            pubDateData = filename.split('/')[-1].split('-', 3) # This assumes that the filenames are in
+                                                                # YYYY-MM-DD-title-string.md format
             pubDate = datetime.datetime(int(pubDateData[0]), int(pubDateData[1]), int(pubDateData[2]))
             return str(pubDate)
         return None
