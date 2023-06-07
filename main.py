@@ -14,16 +14,17 @@ with open("config.json") as json_data_file:
 parser = argparse.ArgumentParser(description='Process a Jekyll Markdown file or directory of Jekyll Markdown posts and create them in a WordPress instance')
 parser.add_argument('--file', help='The absolute path of a single post file')
 parser.add_argument('--directory', help='The absolute path of the directory with all the posts')
+parser.add_argument('--post_type', help='The post type to be created')
 args = parser.parse_args()
 
 # Global Wordpress Handler
 handler = wph.WordpressHandler(jp.JekyllParser(), config)
 
 if (args.file):
-    handler.post_to_wordpress_from_file(args.file)
+    handler.post_to_wordpress_from_file(args.file, args.post_type)
 elif (args.directory):
     # Post file content to wordpress
     files = [abspath(join(args.directory, f)) for f in listdir(args.directory)]
     for i, file in enumerate(files):
-        handler.post_to_wordpress_from_file(file)
+        handler.post_to_wordpress_from_file(file, args.post_type)
 

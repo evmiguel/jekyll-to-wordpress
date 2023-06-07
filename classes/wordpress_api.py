@@ -56,7 +56,9 @@ class WordPressAPI:
         json_data = response.json()
         self.categories[json_data['slug']] = { 'id': json_data['id'], 'slug': json_data['slug']}
 
-    def create_post(self, metadata, html_content, pubDate):
+    def create_post(self, metadata, html_content, pubDate, post_type=None):
+        if not post_type:
+            post_type = "posts"
         data = {
             "title": metadata["title"],
             "content": html_content,
@@ -81,7 +83,7 @@ class WordPressAPI:
             else:
                 self.create_tag(metadata["tags"])
         
-        response = requests.post(url="{}/wp-json/wp/v2/posts".format(self.config['wordpress_url']),
+        response = requests.post(url="{}/wp-json/wp/v2/{}".format(self.config['wordpress_url'], post_type),
                                 auth=(self.config['wordpress_auth_username'],
                                       self.config['wordpress_auth_password']),
                                 json=data,

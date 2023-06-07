@@ -18,13 +18,13 @@ class WordpressHandler(Handler):
     
     # This function only works if there is a slug in the frontmatter
     # TODO: handle missing data parameters: categories and tags
-    def post_to_wordpress(self, content, pubDate=None):
+    def post_to_wordpress(self, content, pubDate=None, post_type=None):
         metadata, html_content = self.parser.parse(content)
-        self.api.create_post(metadata, html_content, pubDate)
+        self.api.create_post(metadata, html_content, pubDate, post_type)
        
-    def post_to_wordpress_from_file(self, file):
+    def post_to_wordpress_from_file(self, file, post_type=None):
         read_file = open(file, 'r')
         content = read_file.read()
         pubDate = self.parser.parse_date_from_filename(file)
-        self.post_to_wordpress(content, pubDate)
+        self.post_to_wordpress(content, pubDate, post_type)
         
