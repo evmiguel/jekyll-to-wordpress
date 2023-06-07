@@ -29,6 +29,20 @@ class WordPressAPI:
 
         return tags
     
+    def create_tag(self, tag):
+        data = {
+            "name": tag
+        }
+        
+        response = requests.post(url="{}/wp-json/wp/v2/tags".format(self.config['wordpress_url']),
+                                json=data,
+                                auth=(self.config['wordpress_auth_username'], 
+                                      self.config['wordpress_auth_password']))
+        
+        if (response.status_code >= 200):
+           print("\"{}\" was created in Wordpress".format(tag))
+
+    
     def create_category(self, name):
         data = {
             'name': name,
@@ -65,7 +79,7 @@ class WordPressAPI:
             if metadata['tags'] in self.tags:
                 data['tags'] = [self.tags[metadata['tags']]['id']]
             else:
-                raise NotImplementedError('Create new tag: {} for slug {}'.format(metadata['tags'], metadata['slug']))
+                self.create_tag(metadata["tags"])
         
         response = requests.post(url="{}/wp-json/wp/v2/posts".format(self.config['wordpress_url']),
                                 auth=(self.config['wordpress_auth_username'],
